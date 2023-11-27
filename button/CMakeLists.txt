@@ -4,6 +4,8 @@ add_executable(button
 
 # pull in common dependencies
 target_link_libraries(button pico_stdlib)
+pico_enable_stdio_usb(button 1) 
+pico_enable_stdio_uart(button 0) 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(button)
 
