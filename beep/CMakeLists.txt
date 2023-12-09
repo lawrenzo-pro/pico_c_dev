@@ -4,8 +4,8 @@ add_executable(beep
 
 # pull in common dependencies
 target_link_libraries(beep pico_stdlib pico_multicore)
-pico_enable_stdio_usb(beep 1) 
-pico_enable_stdio_uart(beep 0) 
+pico_enable_stdio_usb(button 1) 
+pico_enable_stdio_uart(button 0) 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(beep)
 
