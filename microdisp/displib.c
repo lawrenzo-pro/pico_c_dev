@@ -1,6 +1,7 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
-int pins [] = {12,13,14,15,16,17,18,19};
+#define BEEPER_PIN 19
+int pins [] = {12,13,14,15,16,17,18};
 int zero [] = {0,1,2,4,5,6}; // len = 6
 int one  [] = {0,6}; // len = 2
 int two  [] = {0,1,3,4,5}; //len = 5
@@ -12,24 +13,16 @@ int seven[] = {0,1,6};       // len = 3
 int eight[] = {0,1,2,3,4,5,6}; // len = 7
 int nine[]  = {0,1,2,3,5,6}; // len = 6
 //magic
-void setup(){
+void display_init(){
     //a simple cheat
     int i = 0;
-    while(i < 8){
+    while(i < 7){
        gpio_init(pins[i]);
        gpio_set_dir(pins[i],GPIO_OUT);
-       printf("%d  ,", pins[i]);
        i++;
     }
-    printf("have been initialized. \n");
-}
-void beepy(){
-    while(true){
-        gpio_put(pins[7],1);
-        sleep_ms(500);
-        gpio_put(pins[7],0);
-        sleep_ms(500);
-    }
+    gpio_init(BEEPER_PIN);
+    gpio_set_dir(BEEPER_PIN,GPIO_OUT);
 }
 //clear the display
 void clear(){
