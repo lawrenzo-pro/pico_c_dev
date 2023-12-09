@@ -1,5 +1,4 @@
 #include "pico/stdlib.h"
-#include <stdio.h>
 #define BEEPER_PIN 19
 int pins [] = {12,13,14,15,16,17,18};
 int zero [] = {0,1,2,4,5,6}; // len = 6
@@ -32,7 +31,6 @@ void clear(){
 }
 //computers are stupid, I have to define the 9 digits,
 //I'm still looking for a better way of doing this;
-//TODO: See if making the functions return int makes it bettter
 void print_zero(){
     for(int i = 0; i<6; i++){
         gpio_put(pins[zero[i]],1);
