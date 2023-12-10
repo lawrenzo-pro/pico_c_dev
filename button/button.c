@@ -1,8 +1,8 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include <stdio.h>
-#define LED_PIN 12
-#define LED_PIN_2 13
+#define LED_PIN 10
+#define LED_PIN_2 11
 #define BUTTON_PIN 18
 #define BUTTON_2 17
 void core_1_main(){
