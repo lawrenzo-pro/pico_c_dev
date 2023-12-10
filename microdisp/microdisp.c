@@ -8,12 +8,7 @@ void setup(){
 }
 void countdown(){
     while(true){
-       for(int i = 0;i<= 9;i++){
-        print_num(i);
-        printf("The number is: %d \n",i);
-        sleep_ms(1000);
-        clear();
-       }
+       print_num(3);
     }
 }
 void beepy(){
