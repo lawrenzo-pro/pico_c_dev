@@ -17,9 +17,6 @@ void setup(){
 void countdown(){
     int num = 0;
     while(true){
-       if(num < 0){
-          num = 9;
-       }
        if(gpio_get(BUTTON_UP) == 1){
          int limit = 9;
          if(num == limit){
