@@ -1,17 +1,18 @@
 #include "pico/stdlib.h"
 #define BEEPER_PIN 19
+//magic;let's list the gpios that the display uses
 int pins [] = {12,13,14,15,16,17,18};
+//These are the indices of the 'high' pins of each numeric values,in reference to the gpio array
 int zero [] = {0,1,2,4,5,6}; // len = 6
 int one  [] = {0,6}; // len = 2
 int two  [] = {0,1,3,4,5}; //len = 5
 int three[] = {0,1,3,5,6}; // len = 5
-int four[]  = {0,2,3,6};   // len = 4
-int five[]  = {1,2,3,5,6}; // len = 5
-int six[]   = {1,2,3,4,5,6}; // len = 6
+int four []  = {0,2,3,6};   // len = 4
+int five []  = {1,2,3,5,6}; // len = 5
+int six  []   = {1,2,3,4,5,6}; // len = 6
 int seven[] = {0,1,6};       // len = 3
 int eight[] = {0,1,2,3,4,5,6}; // len = 7
-int nine[]  = {0,1,2,3,5,6}; // len = 6
-//magic
+int nine []  = {0,1,2,3,5,6}; // len = 6
 void display_init(){
     //a simple cheat
     int i = 0;
@@ -72,7 +73,6 @@ void print_seven(){
     }
 }
 void print_eight(){
-    //same here but this implementation is cursed either way
     for(int i = 0; i < 7;i++){
         gpio_put(pins[eight[i]],1);
     }
