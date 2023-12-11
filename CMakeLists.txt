@@ -22,6 +22,7 @@ add_subdirectory(blink)
 add_subdirectory(button)
 add_subdirectory(microdisp)
 add_subdirectory(beep)
+add_subdirectory(motion_sense)
 add_compile_options(-Wall
         -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
         -Wno-unused-function # we have some for the docs that aren't called

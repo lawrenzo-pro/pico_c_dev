@@ -1,0 +1,6 @@
+add_executable(motion_sense motion_sense.c)
+target_link_libraries(motion_sense pico_stdlib pico_multicore hardware_adc)
+pico_enable_stdio_usb(motion_sense 1)
+pico_enable_stdio_uart(motion_sense 0)
+pico_add_extra_outputs(motion_sense)
+example_auto_set_url(motion_sense)

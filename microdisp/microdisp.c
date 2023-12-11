@@ -23,9 +23,9 @@ void countdown(){
             num = 0;
          }
          else{
-             num = num + 1;
+             num = num + 1;    
          }
-         printf("Number %d will be displayed soon. \n", num);
+         printf("Number %d is displayed \n", num);
          sleep_ms(200);
          clear();
        }
@@ -35,9 +35,9 @@ void countdown(){
             num = 9;
          }
          else{
-            num = num - 1;
+            num = num - 1; 
          }
-         printf("Number %d will be displayed soon. \n", num);
+         printf("Number %d is displayed \n", num);
          sleep_ms(200);
          clear();
        }
