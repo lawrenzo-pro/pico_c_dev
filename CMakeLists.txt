@@ -18,12 +18,7 @@ pico_sdk_init()
 
 include(example_auto_set_url.cmake)
 # Add blink example
-add_subdirectory(blink)
-add_subdirectory(button)
-add_subdirectory(microdisp)
-add_subdirectory(beep)
-add_subdirectory(motion_sense)
-add_subdirectory(temperature_sense)
+
 add_compile_options(-Wall
         -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
         -Wno-unused-function # we have some for the docs that aren't called
@@ -31,4 +26,10 @@ add_compile_options(-Wall
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
-
+add_subdirectory(blink)
+add_subdirectory(button)
+add_subdirectory(microdisp)
+add_subdirectory(beep)
+add_subdirectory(motion_sense)
+add_subdirectory(temperature_sense)
+add_subdirectory(bcd_count)
