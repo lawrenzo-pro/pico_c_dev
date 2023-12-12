@@ -6,59 +6,25 @@
 #define LEN  4
 int tens[] = {2,3,4,5};
 int ones[] = {6,7,8,9};
-int  zero[] = {0,0,0,0};
-int   one[] = {0,0,0,1};
-int   two[] = {0,0,1,0};
-int three[] = {0,0,1,1};
-int  four[] = {0,1,0,0};
-int  five[] = {0,1,0,1};
-int   six[] = {0,1,1,0};
-int seven[] = {0,1,1,1};
-int eight[] = {1,0,0,0};
-int  nine[] = {1,0,0,1};
-
-void copy_array(int* source,int *dest){
-    for(int i = 0; i < LEN;i++){
-        dest[i] = source[i];
+void dec_to_bin_array(int num,int* dest){
+    /* Magic code to convert an integer into an array of 1's and 0's,
+    limited to 4 bit numbers though
+    */
+    int bit_3 = num / 8;
+    int rem3 = num % 8;
+    int bit_2 = rem3 / 4;
+    int rem2 = rem3 % 4;
+    int bit_1 = rem2 / 2;
+    int rem1 = rem2 % 2;
+    int bit_0 = rem1 / 1;
+    int array[]= {bit_3,bit_2,bit_1,bit_0};
+    for(int i = 0; i < LEN; i++){
+        dest[i] = array[i];
     }
 }
-
 void bcd_parse(int seg,int num){
     int array[4];
-    switch(num){
-        case 0:
-            copy_array(zero,array);
-            break;
-        case 1:
-            copy_array(one,array);
-            break;
-        case 2:
-            copy_array(two,array);
-            break;
-        case 3:
-            copy_array(three,array);
-            break;
-        case 4:
-            copy_array(four,array);
-            break;
-        case 5:
-            copy_array(five,array);
-            break;
-        case 6:
-            copy_array(six,array);
-            break;
-        case 7:
-            copy_array(seven,array);
-            break;
-        case 8:
-            copy_array(eight,array);
-            break;
-        case 9:
-            copy_array(nine,array);
-            break;
-        default:
-             break;
-    }
+    dec_to_bin_array(num,array);
     if (seg == 0){
          for(int i = 0; i < LEN;i++){
             gpio_put(ones[i],array[i]);
@@ -73,7 +39,7 @@ void bcd_parse(int seg,int num){
 void bcd_print(int num){
     /*My Genius can clearly be seen here....*/
     int tens_place = num / 10;
-    int ones_place = num - 10 * tens_place;
+    int ones_place = num % 10;
     printf("%d \n",tens_place);
     bcd_parse(1,tens_place);
     bcd_parse(0,ones_place);
