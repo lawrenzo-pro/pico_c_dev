@@ -1,7 +1,5 @@
 #include "pico/stdlib.h"
-#include "pico/multicore.h"
 #include  <math.h>
-#include <stdio.h>
 #define LEN  4
 int tens[] = {2,3,4,5};
 int ones[] = {6,7,8,9};
@@ -41,25 +39,14 @@ void bcd_print(int num){
     /*My Genius can clearly be seen here....*/
     int tens_place = num / 10;
     int ones_place = num % 10;
-    printf("%d \n",tens_place);
     bcd_parse(1,tens_place);
     bcd_parse(0,ones_place);
-    printf("%d \n ", ones_place);
 }
-
-
-int main(){
-    stdio_init_all();
+void bcd_init(){
     for(int i = 0; i < LEN; i++){
         gpio_init(tens[i]);
         gpio_init(ones[i]);
         gpio_set_dir(ones[i],GPIO_OUT);
         gpio_set_dir(tens[i],GPIO_OUT);
-    }
-    while(true){
-       for(int k = 0; k <= 99;k++){
-         bcd_print(k);
-         sleep_ms(1000);
-       }
     }
 }
