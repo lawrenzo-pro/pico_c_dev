@@ -3,22 +3,22 @@
 #define LEN  4
 int tens[] = {2,3,4,5};
 int ones[] = {6,7,8,9};
-void dec_to_bin_array(int num,int size,int* dest){
-    int power = log2(num);
-    int offset = 0;
+void dec_to_bin_array(int decimal_number,int size,int* destination_array){
+    int power = log2(decimal_number);
+    int zero_padding = 0;
     if(power < size - 1){
-        offset = size - (power+1);
+        zero_padding = size - (power+1);
     }
-    power = power + offset;
+    int destination_length = power + zero_padding;
     int i = 0;
-    while(power >= 0){
-        int val = pow(2,power);
-        int rem = num % val;
-        int bit = num / val;
-        num = rem;
-        dest[i] = bit;
+    while(destination_length >= 0){
+        int value = pow(2,destination_length);
+        int remainder = decimal_number % value;
+        int bit = decimal_number / value;
+        decimal_number = remainder;
+        destination_array[i] = bit;
         i++;
-        power--;
+        destination_length--;
     }
 }
 void bcd_parse(int seg,int num){

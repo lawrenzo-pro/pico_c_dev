@@ -28,6 +28,7 @@ int main() {
 
     while (true) {
         float temperature = read_onboard_temperature(TEMPERATURE_UNITS);
+        printf("Ambient temperature = %.02f %c\n", temperature, TEMPERATURE_UNITS);
         bcd_print(round(temperature));
         sleep_ms(990);
     }
