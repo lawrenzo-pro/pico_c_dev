@@ -1,7 +1,5 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
-#include "hardware/gpio.h"
-#include "hardware/adc.h"
 #include <stdio.h>
 #define LEN  4
 int tens[] = {2,3,4,5};

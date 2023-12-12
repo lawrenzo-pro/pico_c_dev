@@ -1,6 +1,6 @@
 add_executable(bcd_count bcd_count.c)
 
-target_link_libraries(bcd_count pico_stdlib pico_multicore hardware_adc)
+target_link_libraries(bcd_count pico_stdlib pico_multicore)
 
 # enable uart output, disable usb output
 pico_enable_stdio_uart(bcd_count 0)
