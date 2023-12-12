@@ -1,36 +1,30 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include <stdio.h>
+#include <math.h>
+#define LEN 8
 int pins[]={2,3,4,5,6,7,8,9};
-void dec_to_bin_array(int num,int* dest){
-    /*Magic code to convert an integer into an array of 1's and 0's,
-    limited to 8 bit numbers though
-    */
-
-    int bit_7 = num / 128;
-    int rem7 = num % 128;
-    int bit_6 = rem7 / 64;
-    int rem6 = rem7 % 64;
-    int bit_5 = rem6 / 32;
-    int rem5 = rem6 % 32;
-    int bit_4 = rem5 / 16;
-    int rem4 = rem5 % 16;
-    int bit_3 = rem4 / 8;
-    int rem3 = rem4 % 8;
-    int bit_2 = rem3 / 4;
-    int rem2 = rem3 % 4;
-    int bit_1 = rem2 / 2;
-    int rem1 = rem2 % 2;
-    int bit_0 = rem1 / 1;
-
-    int array[]= {bit_7,bit_6,bit_5,bit_4,bit_3,bit_2,bit_1,bit_0};
-    for(int i = 0; i < 8; i++){
-        dest[i] = array[i];
+void dec_to_bin_array(int num,int size,int* dest){
+    int power = log2(num);
+    int offset = 0;
+    if(power < size - 1){
+        offset = size - (power+1);
+    }
+    power = power + offset;
+    int i = 0;
+    while(power >= 0){
+        int val = pow(2,power);
+        int rem = num % val;
+        int bit = num / val;
+        num = rem;
+        dest[i] = bit;
+        i++;
+        power--;
     }
 }
 void binary_print(int num){
     int output[8];
-    dec_to_bin_array(num,output);
+    dec_to_bin_array(num,LEN,output);
     for(int i = 0; i< 8; i++){
         gpio_put(pins[i],output[i]);
     }

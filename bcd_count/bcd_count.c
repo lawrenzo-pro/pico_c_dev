@@ -1,28 +1,32 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
+#include  <math.h>
 #include <stdio.h>
 #define LEN  4
 int tens[] = {2,3,4,5};
 int ones[] = {6,7,8,9};
-void dec_to_bin_array(int num,int* dest){
-    /* Magic code to convert an integer into an array of 1's and 0's,
-    limited to 4 bit numbers though
-    */
-    int bit_3 = num / 8;
-    int rem3 = num % 8;
-    int bit_2 = rem3 / 4;
-    int rem2 = rem3 % 4;
-    int bit_1 = rem2 / 2;
-    int rem1 = rem2 % 2;
-    int bit_0 = rem1 / 1;
-    int array[]= {bit_3,bit_2,bit_1,bit_0};
-    for(int i = 0; i < LEN; i++){
-        dest[i] = array[i];
+void dec_to_bin_array(int num,int size,int* dest){
+    int power = log2(num);
+    int offset = 0;
+    if(power < size - 1){
+        offset = size - (power+1);
+    }
+    power = power + offset;
+    printf("%d , \n", offset);
+    int i = 0;
+    while(power >= 0){
+        int val = pow(2,power);
+        int rem = num % val;
+        int bit = num / val;
+        num = rem;
+        dest[i] = bit;
+        i++;
+        power--;
     }
 }
 void bcd_parse(int seg,int num){
     int array[4];
-    dec_to_bin_array(num,array);
+    dec_to_bin_array(num,LEN,array);
     if (seg == 0){
          for(int i = 0; i < LEN;i++){
             gpio_put(ones[i],array[i]);
