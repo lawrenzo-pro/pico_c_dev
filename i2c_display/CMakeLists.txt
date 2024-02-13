@@ -1,0 +1,5 @@
+add_executable(i2c_display main.c)
+target_link_libraries(i2c_display pico_stdlib hardware_i2c pico_multicore)
+pico_enable_stdio_usb(i2c_display 1)
+pico_enable_stdio_uart(i2c_display 0)
+pico_add_extra_outputs(i2c_display)
