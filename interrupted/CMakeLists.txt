@@ -6,3 +6,4 @@ pico_enable_stdio_uart(interrupted 0)
 pico_enable_stdio_usb(interrupted 1)
 
 pico_add_extra_outputs(interrupted)
+example_auto_set_url(interrupted)
