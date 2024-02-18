@@ -106,39 +106,32 @@ void lcd_init() {
     lcd_send_byte(LCD_DISPLAYCONTROL | LCD_DISPLAYON, LCD_COMMAND);
     lcd_clear();
 }
-void scroll_print(char message[]){
-        int pos_row = 0;
-        int pos_column = 0;
-        int char_num = 0;
-        int i = 0;
-        int size = strlen(message);
-        while(char_num < size){
-            if(message[i] == '\n'){
-                i++;
-                pos_row = 1;
-                pos_column = 0;
-                size = size - i ;
-                char_num = 0;
-            }
-            lcd_set_cursor(pos_row,pos_column);
-            lcd_char(message[i]);
-            i++;
-            pos_column++;
-            char_num++;
-            sleep_ms(150);
-        }
-    lcd_clear();
+void clear_row(int row){
+    int i = 0;
+    while(i <= 15){
+        lcd_set_cursor(row,i);
+        lcd_char(' ');
+        i++;
+    }
 }
-void lcd_print(char message[],int row, int column){
+void scroll_print(char message[],int delay,int row, int column){
     int pos_row = row;
     int pos_column = column;
     int char_num = 0;
     int i = 0;
     int size = strlen(message);
     while(char_num < size){
+        if(i != 0 && i % 16 == 0){
+            pos_row = !pos_row;
+            pos_column = 0;
+            clear_row(pos_row);
+        }
         if(message[i] == '\n'){
             i++;
             pos_row = !pos_row;
+            if(delay){
+                clear_row(pos_row);
+            }
             pos_column = 0;
             size = size - i ;
             char_num = 0;
@@ -148,5 +141,27 @@ void lcd_print(char message[],int row, int column){
         i++;
         pos_column++;
         char_num++;
+        sleep_ms(delay);
     }
+    if(delay){
+        lcd_clear();
+    }
+}
+void lcd_print(char message[],int row, int column){
+   scroll_print(message,0,row,column);
+}
+void print_num(int num,int row, int column){
+    char str[16];
+    sprintf(str,"%d", num);
+    lcd_print(str,0,column);
+}
+void fmt_print(char message[], int num){
+    int row = 0;
+    int column = 0;
+    int ref = strlen(message);
+    char str[16];
+    sprintf(str,"%d", num);
+    lcd_print(message,row,column);
+    column += ref;
+    lcd_print(str,0,column);
 }

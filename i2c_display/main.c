@@ -2,15 +2,18 @@
 int main(){
     stdio_init_all();
     lcd_init();  
-    int num = 86;
-    char str[16];
-    char *str2 = "something";
-    sprintf(str,"%d", num);
-    char *str3 = strcat(str,str2);
+    int i = 1;
+    int prod = 1;
+    while(i <= 10){
+        prod *= i;
+        fmt_print("Product:", prod);
+        sleep_ms(300);
+        i++;
+    }
+     lcd_clear();
     while(true){
         //to be done later
-        lcd_print("Hello !", 0,0);
-        lcd_print(str3,1,0);
-        printf("%s ", str3);
+     scroll_print("This is a proof\nsomething ain't right at all.This is just a test.",100,0,0);
+     sleep_ms(500);
     }
 }
