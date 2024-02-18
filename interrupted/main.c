@@ -6,7 +6,6 @@
 #define LED2 11
 #define BTN 13
 #define LED3 14
-
 bool state = false;
 int num1 = 0;
 bool repeating_callback(struct repeating_timer *t){
@@ -25,9 +24,8 @@ bool repeating_two(struct repeating_timer *t){
     state_2= !state_2;
     return true;
 }
-bool st = true;
+bool st = false;
 void handler(){
-    gpio_put(LED3,st);
     st = !st;
 }
 int main(){
@@ -41,14 +39,13 @@ int main(){
     gpio_set_dir(BTN,GPIO_IN);
     gpio_pull_down(BTN);
     stdio_init_all();
-    
     struct repeating_timer timer;
     struct repeating_timer timer2;
     add_repeating_timer_ms(500,repeating_callback,NULL, &timer);
     add_repeating_timer_ms(490,repeating_two,NULL,&timer2);
-    gpio_set_irq_enabled_with_callback(BTN,GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,true,handler);
+    gpio_set_irq_enabled_with_callback(BTN,GPIO_IRQ_EDGE_RISE,true,handler);
     while(true){
-       tight_loop_contents();
+        gpio_put(LED3,st);
     }
     return 0;
 }
